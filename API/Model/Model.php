@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model;
+namespace API\Model;
 
 abstract class Model {
     public $rows;
