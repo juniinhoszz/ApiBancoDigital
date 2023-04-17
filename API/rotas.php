@@ -10,7 +10,7 @@ switch($parse_uri) {
 
     // http://localhost:8000/correntista/save --
     case "/correntista/save":
-        
+        CorrentistaController::save();
     break;
 
     // http://localhost:8000/conta/extrato --
