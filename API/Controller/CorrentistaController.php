@@ -21,4 +21,9 @@ class CorrentistaController extends Controller {
 	{
 
 	}
+
+	public static function auth() 
+	{
+
+	}
 }

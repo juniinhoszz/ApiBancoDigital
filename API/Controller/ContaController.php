@@ -17,6 +17,21 @@ class ContaController extends Controller {
 
 	}
 
+	public static function extrato() 
+	{
+
+	}
+
+	public static function enviarPix()
+	{
+
+	}
+
+	public static function receberPix()
+	{
+		
+	}
+
 	public static function delete() 
 	{
 
