@@ -13,7 +13,7 @@ class CorrentistaDAO extends DAO {
 
     public function insert(CorrentistaModel $model) 
     {
-        $sql = "INSERT INTO correntista (nome, cpf, data_nasc, senha) VALUES (?, ?, ?, ?) ";
+        $sql = "INSERT INTO correntista (nome, cpf, data_nasc, senha) VALUES (?, ?, ?, sha1(?)) ";
 
         $stmt = $this->conexao->prepare($sql);
         $stmt->bindValue(1, $model->nome);
@@ -79,6 +79,18 @@ class CorrentistaDAO extends DAO {
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS, "API\Model\CorrentistaModel");
+    }
+
+    public function selectByCpfAndSenha($cpf, $senha) : CorrentistaModel
+    {
+        $sql = "SELECT * FROM correntista WHERE cpf = ? AND senha = sha1(?) ";
+
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->bindValue(1, $cpf);
+        $stmt->bindValue(2, $senha);
+        $stmt->execute();
+
+        return $stmt->fetchObject("API\Model\CorrentistaModel"); // Retornando um objeto específico PessoaModel
     }
 
     public function delete(int $id)

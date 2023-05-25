@@ -16,6 +16,11 @@ class CorrentistaModel extends Model {
 			$dao->update($this);
 	}
 
+	public function getByCpfAndSenha($cpf, $senha) : CorrentistaModel
+    {      
+        return (new CorrentistaDAO())->selectByCpfAndSenha($cpf, $senha);
+    }
+
 	public function getAllRows() 
 	{
 		$dao = new CorrentistaDAO();

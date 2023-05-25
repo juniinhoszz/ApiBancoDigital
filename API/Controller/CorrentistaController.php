@@ -4,6 +4,27 @@ use Exception,
 	API\Model\CorrentistaModel;
 
 class CorrentistaController extends Controller {
+
+    public static function login()
+    {
+        try
+        {
+            // Transformando os dados da entrada enviada do app em
+            // JSON para um objeto em PHP.
+            $data = json_decode(file_get_contents('php://input'));
+
+            $model = new CorrentistaModel();
+
+            parent::getResponseAsJSON($model->getByCpfAndSenha($data->Cpf, $data->Senha)); 
+
+        } catch(Exception $e) {
+            
+            parent::LogError($e);
+            parent::getExceptionAsJSON($e);
+        }  
+    
+    }
+
 	public static function save() : void
 	{
 		try
@@ -62,8 +83,4 @@ class CorrentistaController extends Controller {
         }
 	}
 
-	public static function auth() 
-	{
-
-	}
 }

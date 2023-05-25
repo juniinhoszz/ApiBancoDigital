@@ -83,4 +83,14 @@ class TransacaoController extends Controller {
             parent::getExceptionAsJSON($e);
         }
 	}
+
+    public static function enviarPix()
+	{
+
+	}
+
+	public static function receberPix()
+	{
+		
+	}
 }
