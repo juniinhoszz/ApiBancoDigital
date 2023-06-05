@@ -25,11 +25,12 @@ class CorrentistaController extends Controller {
     
     }
 
-	public static function save() : void
+	public static function save() 
 	{
 		try
         {
-            $json_obj = json_decode(file_get_contents('php://input'));
+            $json_obj = parent::getJSONFromRequest();
+            //$json_obj = json_decode(file_get_contents('php://input'));
 
             $model = new CorrentistaModel();
             $model->id = $json_obj->Id;
@@ -38,7 +39,8 @@ class CorrentistaController extends Controller {
 			$model->data_nasc = $json_obj->Data_nasc;
 			$model->senha = $json_obj->Senha;
 
-            parent::getResponseAsJSON($model->save());
+            $model->id = $model->save();
+		    parent::getResponseAsJSON($model);
               
         } catch (Exception $e) {
             parent::LogError($e);
