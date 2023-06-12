@@ -36,12 +36,7 @@ switch($parse_uri) {
         TransacaoController::receberPix();
     break;
 
-    // http://localhost:8000/correntista/entrar --
-    //case "/correntista/entrar":
-    //    CorrentistaController::auth();
-    // break;
-
     default:
-        header("Location: /");
+        //header("Location: /");
     break;
 }
