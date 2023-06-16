@@ -29,18 +29,36 @@ class CorrentistaController extends Controller {
 	{
 		try
         {
-            $json_obj = parent::getJSONFromRequest();
+            //$json_obj = parent::getJSONFromRequest();
             //$json_obj = json_decode(file_get_contents('php://input'));
+            $data = json_decode(file_get_contents('php://input'));
 
             $model = new CorrentistaModel();
-            $model->id = $json_obj->Id;
-            $model->nome = $json_obj->Nome;
-            $model->cpf = $json_obj->CPF;
-			$model->data_nasc = $json_obj->Data_nasc;
-			$model->senha = $json_obj->Senha;
 
-            $model->id = $model->save();
-		    parent::getResponseAsJSON($model);
+            foreach (get_object_vars($data) as $key => $value) 
+            {
+                $prop_letra_minuscula = strtolower($key);
+
+                $model->$prop_letra_minuscula = $value;
+            }
+
+            /**
+             * Salvando o novo correntista e definindo a saída.
+             * Exemplo de saída que poderá ser vista no Console do Visual Studio 2022:
+             * {"rows":null,"id":"6","nome":"Giovani","email":"giovani@teste.com","cpf":"123456789","data_nascimento":"2005-02-08T00:00:00","senha":"123"}
+             */
+            parent::getResponseAsJSON($model->save()); 
+
+            
+            //$model = new CorrentistaModel();
+            //$model->id = $data->Id;
+            //$model->nome = $data->Nome;
+            //$model->cpf = $data->CPF;
+			//$model->data_nasc = $data->Data_nasc;
+			//$model->senha = $data->Senha;
+
+            //$model->id = $model->save();
+		    //parent::getResponseAsJSON($model);
               
         } catch (Exception $e) {
             parent::LogError($e);

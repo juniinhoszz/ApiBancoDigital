@@ -11,15 +11,22 @@ class CorrentistaDAO extends DAO {
         parent::__construct();      
     }
 
+    public function save(CorrentistaModel $m) : CorrentistaModel
+    {
+        return ($m->id == null) ? $this->insert($m) : $this->update($m);
+    }
+
     public function insert(CorrentistaModel $model) 
     {
         $sql = "INSERT INTO correntista (nome, cpf, data_nasc, senha) VALUES (?, ?, ?, sha1(?)) ";
 
         $stmt = $this->conexao->prepare($sql);
+
         $stmt->bindValue(1, $model->nome);
         $stmt->bindValue(2, $model->cpf);
         $stmt->bindValue(3, $model->data_nasc);
         $stmt->bindValue(4, $model->senha);
+
         $stmt->execute();
 
         $model->id = $this->conexao->lastInsertId();
@@ -53,7 +60,7 @@ class CorrentistaDAO extends DAO {
         $stmt->bindValue(5, $model->id);
         $stmt->execute();
 
-        return $stmt->execute();
+        return $model;
     }
 
     public function select()
@@ -90,7 +97,10 @@ class CorrentistaDAO extends DAO {
         $stmt->bindValue(2, $senha);
         $stmt->execute();
 
-        return $stmt->fetchObject("API\Model\CorrentistaModel"); // Retornando um objeto específico PessoaModel
+        //return $stmt->fetchObject("API\Model\CorrentistaModel"); // Retornando um objeto específico PessoaModel
+        $obj = $stmt->fetchObject("App\Model\CorrentistaModel");
+
+        return is_object($obj) ? $obj : new CorrentistaModel();
     }
 
     public function delete(int $id)
