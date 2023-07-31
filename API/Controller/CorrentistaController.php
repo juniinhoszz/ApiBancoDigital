@@ -15,7 +15,7 @@ class CorrentistaController extends Controller {
 
             $model = new CorrentistaModel();
 
-            parent::getResponseAsJSON($model->getByCpfAndSenha($data->Cpf, $data->Senha)); 
+            parent::getResponseAsJSON($model->getByCpfAndSenha($data->CPF, $data->Senha)); 
 
         } catch(Exception $e) {
             
