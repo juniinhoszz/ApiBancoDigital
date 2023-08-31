@@ -9,13 +9,13 @@ class ChavePixController extends Controller {
 	{
 		try
         {
-            $json_obj = json_decode(file_get_contents('php://input'));
+            $data = json_decode(file_get_contents('php://input'));
 
             $model = new ChavePixModel();
-            $model->id = $json_obj->Id;
-            $model->tipo = $json_obj->Tipo;
-            $model->chave = $json_obj->Chave;
-			$model->id_conta = $json_obj->Id_conta;
+            $model->id = $data->Id;
+            $model->tipo = $data->Tipo;
+            $model->chave = $data->Chave;
+			$model->id_conta = $data->Id_conta;
 
             parent::getResponseAsJSON($model->save());
               
@@ -30,11 +30,10 @@ class ChavePixController extends Controller {
 	{
 		try
         {
+            $data = json_decode(file_get_contents('php://input'));
             $model = new ChavePixModel();
             
-            $model->getAllRows();
-
-            parent::getResponseAsJSON($model->rows);
+            parent::getResponseAsJSON($model->getAllRows($data->id_correntista));
               
         } catch (Exception $e) {
 
