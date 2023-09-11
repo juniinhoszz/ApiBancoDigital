@@ -3,13 +3,48 @@
 namespace API\Model;
 
 use API\DAO\CorrentistaDAO;
+use API\DAO\ContaDAO;
 
 class CorrentistaModel extends Model {
 	public $id, $nome, $cpf, $data_nasc, $senha;
+	public $rows_contas;
 
 	public function save()
 	{
-		return (new CorrentistaDAO())->save($this);
+		$dao_correntista = new CorrentistaDAO();
+        
+        $model_App = $dao_correntista->save($this);
+
+		// Se o insert do correntista deu certo
+        // vamos inserir sua conta corrente e poupança
+        if($model_App->id != null)
+        {
+            $dao_conta = new ContaDAO();
+
+            // Abrindo a conta corrente
+            $conta_corrente = new ContaModel();
+            $conta_corrente->id_correntista = $model_App->id;
+            $conta_corrente->saldo = 0;
+            $conta_corrente->limite = 100;
+            $conta_corrente->tipo = 'C';
+            $conta_corrente = $dao_conta->insert($conta_corrente);
+
+            $model_App->rows_contas[] = $conta_corrente;
+
+			/* Abrindo a conta poupança
+            $conta_poupanca = new ContaModel();
+            $conta_poupanca->id_correntista = $model_App->id;
+            $conta_poupanca->saldo = 0;
+            $conta_poupanca->limite = 0;
+            $conta_poupanca->tipo = 'P';
+            $conta_poupanca = $dao_conta->insert($conta_poupanca);
+
+            $model_App->rows_contas[] = $conta_poupanca;
+			*/
+		}
+		return $model_App;
+		//return (new CorrentistaDAO())->save($this);
+		// DEPOIS FAZER ROTA PARA ABRIR CONTA POUPANÇA COM BOTÃO DO APP
 	}
 
 	public function getByCpfAndSenha($cpf, $senha) : CorrentistaModel
