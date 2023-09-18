@@ -78,13 +78,15 @@ class ContaDAO extends DAO {
         co.nome as nome_correntista
         FROM Conta c
         JOIN Correntista co ON co.id = c.id_correntista
-        WHERE cp.id = ? ";
+        WHERE co.id = ? ";
 
         $stmt = $this->conexao->prepare($sql);
         $stmt->bindValue(1, $id);
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_CLASS, "API\Model\ContaModel");
+        $obj = $stmt->fetchObject("API\Model\ContaModel");
+
+        return is_object($obj) ? $obj : new ContaModel();
     }
 
     public function delete(int $id)

@@ -24,7 +24,7 @@ class CorrentistaModel extends Model {
             // Abrindo a conta corrente
             $conta_corrente = new ContaModel();
             $conta_corrente->id_correntista = $model_App->id;
-            $conta_corrente->saldo = 0;
+            $conta_corrente->saldo = 10.00;
             $conta_corrente->limite = 100;
             $conta_corrente->tipo = 'C';
             $conta_corrente = $dao_conta->insert($conta_corrente);
@@ -49,6 +49,22 @@ class CorrentistaModel extends Model {
 
 	public function getByCpfAndSenha($cpf, $senha) : CorrentistaModel
     {      
+		/* $response_correntista = new CorrentistaDAO;
+
+		$response = $response_correntista->selectByCpfAndSenha($cpf, $senha);
+		
+		if($response->id != null)
+		{
+			$response_conta = new ContaDAO;
+
+			$contas = new ContaModel;
+			$contas = $response_conta->selectById($response->id);
+			
+			$response->rows = $contas;
+		}
+
+        return $response; */
+		
         return (new CorrentistaDAO())->selectByCpfAndSenha($cpf, $senha);
     }
 
