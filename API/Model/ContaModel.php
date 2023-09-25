@@ -34,6 +34,6 @@ class ContaModel extends Model {
 	{
 		$dao = new ContaDAO();
 
-		$this->rows = $dao->selectById($id);
+		return $this->rows = $dao->selectById($id);
 	}
 }

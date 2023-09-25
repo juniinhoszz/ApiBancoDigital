@@ -26,6 +26,11 @@ switch($parse_uri) {
         ContaController::extrato();
     break;
 
+    // http://localhost:8000/conta/extrato --
+    case "/conta/vercontas":
+        ContaController::selectById();
+    break;
+
     // http://localhost:8000/transacao/pix/enviar --
     case "/transacao/pix/enviar":
         TransacaoController::enviarPix();

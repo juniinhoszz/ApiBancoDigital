@@ -31,6 +31,7 @@ class ContaController extends Controller {
 	{
 		try
         {
+            
             $model = new ContaModel();
             
             $model->getAllRows();
@@ -43,6 +44,26 @@ class ContaController extends Controller {
             parent::getExceptionAsJSON($e);
         }
 	}
+
+    public static function selectById()
+    {
+        try
+        {
+            $data = json_decode(file_get_contents('php://input'));
+
+            $model = new ContaModel();
+            
+            //$model->getById((int)$json_obj->id);
+
+            //parent::getResponseAsJSON($model->rows);
+            parent::getResponseAsJSON($model->getById($data)); 
+              
+        } catch (Exception $e) {
+
+            parent::LogError($e);
+            parent::getExceptionAsJSON($e);
+        }
+    }
 
 	public static function update() 
 	{
