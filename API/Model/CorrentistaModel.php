@@ -30,41 +30,29 @@ class CorrentistaModel extends Model {
             $conta_corrente = $dao_conta->insert($conta_corrente);
 
             $model_App->rows_contas[] = $conta_corrente;
-
-			/* Abrindo a conta poupança
-            $conta_poupanca = new ContaModel();
-            $conta_poupanca->id_correntista = $model_App->id;
-            $conta_poupanca->saldo = 0;
-            $conta_poupanca->limite = 0;
-            $conta_poupanca->tipo = 'P';
-            $conta_poupanca = $dao_conta->insert($conta_poupanca);
-
-            $model_App->rows_contas[] = $conta_poupanca;
-			*/
 		}
 		return $model_App;
-		//return (new CorrentistaDAO())->save($this);
-		// DEPOIS FAZER ROTA PARA ABRIR CONTA POUPANÇA COM BOTÃO DO APP
+	}
+
+	public function CriarPoupanca(int $id)
+	{
+		$c = $this;
+
+		$dao_conta = new ContaDAO();
+
+		$conta_poupanca = new ContaModel();
+		$conta_poupanca->id_correntista = $id;
+		$conta_poupanca->saldo = 10;
+		$conta_poupanca->limite = 0;
+		$conta_poupanca->tipo = 'P';
+		$conta_poupanca = $dao_conta->insert($conta_poupanca);
+
+		$c->rows_contas[] = $conta_poupanca;
+		return $c;
 	}
 
 	public function getByCpfAndSenha($cpf, $senha) : CorrentistaModel
-    {      
-		/* $response_correntista = new CorrentistaDAO;
-
-		$response = $response_correntista->selectByCpfAndSenha($cpf, $senha);
-		
-		if($response->id != null)
-		{
-			$response_conta = new ContaDAO;
-
-			$contas = new ContaModel;
-			$contas = $response_conta->selectById($response->id);
-			
-			$response->rows = $contas;
-		}
-
-        return $response; */
-		
+    {      		
         return (new CorrentistaDAO())->selectByCpfAndSenha($cpf, $senha);
     }
 

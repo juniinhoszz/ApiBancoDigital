@@ -1,6 +1,8 @@
 <?php
 
 namespace API\Controller;
+
+use API\Model\CorrentistaModel;
 use Exception,
 	Api\Model\ContaModel;
 
@@ -27,6 +29,53 @@ class ContaController extends Controller {
         }
 	}
 
+    public static function criarPoupanca()
+    {
+        $data = json_decode(file_get_contents('php://input'));
+
+        // ARRUMAR CRIAÇÃO DE CONTA
+        $model = new CorrentistaModel();
+        
+        parent::getResponseAsJSON($model->CriarPoupanca($data));
+    }
+
+    public static function selectPoupancaByIdCorrentista()
+    {
+        try
+        {
+            $data = json_decode(file_get_contents('php://input'));
+
+            $model = new ContaModel();
+            
+            parent::getResponseAsJSON($model->getPoupancaById($data)); 
+              
+        } catch (Exception $e) {
+
+            parent::LogError($e);
+            parent::getExceptionAsJSON($e);
+        }
+    }
+
+    public static function selectCorrenteById()
+    {
+        try
+        {
+            $data = json_decode(file_get_contents('php://input'));
+
+            $model = new ContaModel();
+            
+            //$model->getById((int)$json_obj->id);
+
+            //parent::getResponseAsJSON($model->rows);
+            parent::getResponseAsJSON($model->getCorrenteById($data)); 
+              
+        } catch (Exception $e) {
+
+            parent::LogError($e);
+            parent::getExceptionAsJSON($e);
+        }
+    }
+
 	public static function select() 
 	{
 		try
@@ -44,6 +93,8 @@ class ContaController extends Controller {
             parent::getExceptionAsJSON($e);
         }
 	}
+
+
 
     public static function selectById()
     {

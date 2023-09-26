@@ -29,8 +29,6 @@ class CorrentistaController extends Controller {
 	{
 		try
         {
-            //$json_obj = parent::getJSONFromRequest();
-            //$json_obj = json_decode(file_get_contents('php://input'));
             $data = json_decode(file_get_contents('php://input'));
 
             $model = new CorrentistaModel();
@@ -64,28 +62,6 @@ class CorrentistaController extends Controller {
             parent::LogError($e);
             parent::getExceptionAsJSON($e);
         }
-	}
-
-	public static function select() : void
-	{
-		try
-        {
-            $model = new CorrentistaModel();
-            
-            $model->getAllRows();
-
-            parent::getResponseAsJSON($model->rows);
-              
-        } catch (Exception $e) {
-
-            parent::LogError($e);
-            parent::getExceptionAsJSON($e);
-        }
-	}
-
-	public static function update() 
-	{
-
 	}
 
 	public static function delete() : void

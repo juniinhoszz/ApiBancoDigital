@@ -9,6 +9,8 @@ $parse_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 switch($parse_uri) {
 
+    // CORRENTISTA
+
     // php -S 0.0.0.0:8000
     // http://localhost:8000/correntista/save --
     case "/correntista/save":
@@ -21,15 +23,29 @@ switch($parse_uri) {
         CorrentistaController::login();
     break;
 
+    // CONTA
+
     // http://localhost:8000/conta/extrato --
     case "/conta/extrato":
         ContaController::extrato();
     break;
 
     // http://localhost:8000/conta/extrato --
-    case "/conta/vercontas":
+    case "/conta/vercorrente":
         ContaController::selectById();
     break;
+
+    // http://localhost:8000/conta/extrato --
+    case "/conta/criarpoupanca":
+        ContaController::criarPoupanca();
+    break;
+
+    // http://localhost:8000/conta/extrato --
+    case "/conta/verpoupanca":
+        ContaController::criarPoupanca();
+    break;
+
+    // PIX
 
     // http://localhost:8000/transacao/pix/enviar --
     case "/transacao/pix/enviar":
