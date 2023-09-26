@@ -24,15 +24,10 @@ switch($parse_uri) {
     break;
 
     // CONTA
-
+    
     // http://localhost:8000/conta/extrato --
     case "/conta/extrato":
         ContaController::extrato();
-    break;
-
-    // http://localhost:8000/conta/extrato --
-    case "/conta/vercorrente":
-        ContaController::selectById();
     break;
 
     // http://localhost:8000/conta/extrato --
@@ -41,8 +36,8 @@ switch($parse_uri) {
     break;
 
     // http://localhost:8000/conta/extrato --
-    case "/conta/verpoupanca":
-        ContaController::criarPoupanca();
+    case "/conta/vercontabytipoeid":
+        ContaController::selectContaByTipoeId();
     break;
 
     // PIX

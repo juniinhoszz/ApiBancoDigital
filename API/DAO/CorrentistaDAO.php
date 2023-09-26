@@ -100,14 +100,6 @@ class CorrentistaDAO extends DAO {
         // Retornando um objeto específico PessoaModel
         $obj = $stmt->fetchObject("API\Model\CorrentistaModel");
 
-        /* $sqlConta = "SELECT * FROM conta WHERE id_correntista = ?";
-
-        $stmt = $this->conexao->prepare($sqlConta);
-        $stmt->bindValue(1, $obj->id);
-        $stmt->execute();
-
-        $obj->rows_conta[] = $stmt->fetchObject("API\Model\CorrentistaModel"); */
-
         return is_object($obj) ? $obj : new CorrentistaModel();
     }
 

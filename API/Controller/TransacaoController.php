@@ -86,7 +86,7 @@ class TransacaoController extends Controller {
 
     public static function enviarPix()
 	{
-
+        
 	}
 
 	public static function receberPix()

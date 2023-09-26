@@ -9,20 +9,17 @@ class CorrentistaController extends Controller {
     {
         try
         {
-            // Transformando os dados da entrada enviada do app em
-            // JSON para um objeto em PHP.
+            // Transformando os dados da entrada enviada do app em JSON para um objeto em PHP.
             $data = json_decode(file_get_contents('php://input'));
 
             $model = new CorrentistaModel();
 
             parent::getResponseAsJSON($model->getByCpfAndSenha($data->CPF, $data->Senha)); 
-
         } catch(Exception $e) {
             
             parent::LogError($e);
             parent::getExceptionAsJSON($e);
-        }  
-    
+        }
     }
 
 	public static function save() 
@@ -40,24 +37,12 @@ class CorrentistaController extends Controller {
                 $model->$prop_letra_minuscula = $value;
             }
 
-            /**
+            /*
              * Salvando o novo correntista e definindo a saída.
              * Exemplo de saída que poderá ser vista no Console do Visual Studio 2022:
              * {"rows":null,"id":"6","nome":"Giovani","email":"giovani@teste.com","cpf":"123456789","data_nascimento":"2005-02-08T00:00:00","senha":"123"}
              */
-            parent::getResponseAsJSON($model->save()); 
-
-            
-            //$model = new CorrentistaModel();
-            //$model->id = $data->Id;
-            //$model->nome = $data->Nome;
-            //$model->cpf = $data->CPF;
-			//$model->data_nasc = $data->Data_nasc;
-			//$model->senha = $data->Senha;
-
-            //$model->id = $model->save();
-		    //parent::getResponseAsJSON($model);
-              
+            parent::getResponseAsJSON($model->save());
         } catch (Exception $e) {
             parent::LogError($e);
             parent::getExceptionAsJSON($e);

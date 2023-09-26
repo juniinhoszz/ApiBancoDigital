@@ -72,35 +72,18 @@ class ContaDAO extends DAO {
         return $stmt->fetchAll(PDO::FETCH_CLASS, "API\Model\ContaModel");
     }
 
-    public function selectPoupancaById(int $id)
+    public function selectContaByTipoeId(int $id, string $tipo)
     {
         $sql = "SELECT c.* /*,
         co.nome as nome_correntista */
         FROM Conta c
      /* JOIN Correntista co ON co.id = c.id_correntista */
         WHERE c.id_correntista = ?,
-        WHERE c.tipo = P";
+        WHERE c.tipo = ?";
 
         $stmt = $this->conexao->prepare($sql);
         $stmt->bindValue(1, $id);
-        $stmt->execute();
-
-        $obj = $stmt->fetchObject("API\Model\ContaModel");
-
-        return is_object($obj) ? $obj : new ContaModel();
-    }
-
-    public function selectCorrenteById(int $id)
-    {
-        $sql = "SELECT c.* /*,
-        co.nome as nome_correntista */
-        FROM Conta c
-     /* JOIN Correntista co ON co.id = c.id_correntista */
-        WHERE c.id_correntista = ?,
-        WHERE c.tipo = C";
-
-        $stmt = $this->conexao->prepare($sql);
-        $stmt->bindValue(1, $id);
+        $stmt->bindValue(2, $tipo);
         $stmt->execute();
 
         $obj = $stmt->fetchObject("API\Model\ContaModel");

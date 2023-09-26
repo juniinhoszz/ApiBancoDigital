@@ -16,7 +16,7 @@ class CorrentistaModel extends Model {
         $model_App = $dao_correntista->save($this);
 
 		// Se o insert do correntista deu certo
-        // vamos inserir sua conta corrente e poupança
+        // vamos inserir sua conta corrente
         if($model_App->id != null)
         {
             $dao_conta = new ContaDAO();
@@ -24,7 +24,7 @@ class CorrentistaModel extends Model {
             // Abrindo a conta corrente
             $conta_corrente = new ContaModel();
             $conta_corrente->id_correntista = $model_App->id;
-            $conta_corrente->saldo = 10.00;
+            $conta_corrente->saldo = 10;
             $conta_corrente->limite = 100;
             $conta_corrente->tipo = 'C';
             $conta_corrente = $dao_conta->insert($conta_corrente);
