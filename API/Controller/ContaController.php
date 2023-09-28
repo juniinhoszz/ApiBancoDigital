@@ -24,10 +24,12 @@ class ContaController extends Controller
             $data = json_decode(file_get_contents('php://input'));
             
             $model = new ContaModel();
-            $id = $data->Id_correntista;
-            $tipo = $data->Tipo;
+            //$model->id_correntista = $data->id;
+            //$model->tipo = $data->tipo;
 
-            parent::getResponseAsJSON($model->getContaByTipoeId($id, $tipo));
+            //return var_dump($data);
+
+            parent::getResponseAsJSON($model->getContaByTipoeId($data->Id_correntista, $data->Tipo));
         } catch (Exception $e) {
 
             parent::LogError($e);

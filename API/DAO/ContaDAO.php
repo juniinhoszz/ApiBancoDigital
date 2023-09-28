@@ -74,12 +74,11 @@ class ContaDAO extends DAO {
 
     public function selectContaByTipoeId(int $id, string $tipo)
     {
-        $sql = "SELECT c.* /*,
+        $sql = 'SELECT c.* /*,
         co.nome as nome_correntista */
         FROM Conta c
      /* JOIN Correntista co ON co.id = c.id_correntista */
-        WHERE c.id_correntista = ?,
-        WHERE c.tipo = ?";
+        WHERE c.id_correntista = ? AND c.tipo = ?';
 
         $stmt = $this->conexao->prepare($sql);
         $stmt->bindValue(1, $id);

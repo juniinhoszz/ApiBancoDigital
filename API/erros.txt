@@ -1,0 +1,6 @@
+#0 C:\Users\Usuario\Desktop\ApiBancoDigital\API\DAO\ContaDAO.php(87): PDOStatement->execute()
+#1 C:\Users\Usuario\Desktop\ApiBancoDigital\API\Model\ContaModel.php(38): API\DAO\ContaDAO->selectContaByTipoeId(1, 'C')
+#2 C:\Users\Usuario\Desktop\ApiBancoDigital\API\Controller\ContaController.php(32): API\Model\ContaModel->getContaByTipoeId(1, 'C')
+#3 C:\Users\Usuario\Desktop\ApiBancoDigital\API\rotas.php(40): API\Controller\ContaController::selectContaByTipoeId()
+#4 C:\Users\Usuario\Desktop\ApiBancoDigital\API\index.php(6): include('C:\\Users\\Usuari...')
+#5 {main}
